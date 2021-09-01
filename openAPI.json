@@ -1,0 +1,100 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "UserDataBase"
+  },
+  "host": "www.userdatabase.com",
+  "tags": [
+    {
+      "name": "users"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Get all Users",
+        "description": "Get all Users currently stored in the Database. Returns a JSON with the list of users.",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "404": {
+            "description": "No Users found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Create a new User",
+        "description": "Creates a new User with the specified name",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created user Object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User has been added successfully."
+          },
+          "409": {
+            "description": "User already exists."
+          }
+        }
+      }
+    },
+    "/users/{name}": {
+      "delete": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "name",
+            "description": "Username",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "users"
+        ],
+        "summary": "Deletes specific User",
+        "description": "Deletes specific User by name given as path parameter",
+        "responses": {
+          "200": {
+            "description": "User has been deleted successfully."
+          },
+          "404": {
+            "description": "Specified user does not exist."
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
